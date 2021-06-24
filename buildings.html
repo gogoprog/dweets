@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Title ~ js1024</title>
+  <meta name="author" content="Author"></meta>
+  <meta name="description" content="Short description"></meta>
+  <meta name="title" content="Title"></meta>
+  <meta charset=utf-8>
+</head>
+
+<body id=b>
+  <canvas id=a></canvas>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      border: 2px solid black;
+      transform:scale(0.3, 0.3);
+    }
+  </style>
+
+  <script>
+    a.width = 1920;
+    a.height = 1080;
+
+    c = a.getContext("2d");
+
+    d = document;
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    a.requestPointerLock = a.requestPointerLock || a.mozRequestPointerLock || a.webkitRequestPointerLock;
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+    x = c;
+    c = a;
+
+    S = Math.sin;
+    C = Math.cos;
+  </script>
+
+  <script type="text/javascript">
+    function u(t) {
+      horizon = 400;
+
+      function random() {
+        var x = (S(rs++) + 1) * 99;
+        return x - (x | 0);
+      }
+
+      function drawBuildings(f, vmirror, hmax) {
+        var a = (100*t/ f) % 32;
+
+        for (i = 0; i < 20; i++) {
+          rs = (((100*t/ f) / 32) | 0) + i;
+          var h = 24 + random() * hmax;
+          var w = 16 + random() * 16;
+          x.fillRect(i * 32 - a - w/2, horizon - (vmirror ? 0 : h / 2) - h/2, w, h);
+        }
+      }
+      c.width = 1920;
+      x.fillStyle = "#57c";
+      drawBuildings(4, false, 40);
+      x.fillStyle = "#128";
+      x.fillRect(0, horizon - 8, 1920, 16);
+      drawBuildings(2, true, 75);
+      x.fillStyle = "#fff";
+      x.globalAlpha = 0.5;
+      x.fillRect(0, horizon, 1920, 1920);
+    }
+
+    function loop(t) {
+      u(t / 1000);
+      requestAnimationFrame(loop);
+    }
+    loop(0);
+  </script>
+</body>
+
+</html>
